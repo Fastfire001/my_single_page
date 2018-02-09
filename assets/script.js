@@ -32,6 +32,8 @@ function submitLog(evt) {
 function testUserAccount() {
     if (sessionStorage.getItem('user')){
         document.querySelector('nav').classList.remove('hide');
+        document.querySelector('main').innerHTML = ajax('accueil.html');
+        document.querySelector('span.profile').innerHTML = sessionStorage.getItem('user');
     } else {
         document.querySelector('main').innerHTML = ajax('login.html');
         document.querySelector('form.login').addEventListener("submit", submitLog, true)
