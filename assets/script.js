@@ -81,7 +81,6 @@ function checkNewUserName() {
     } else {
         alert('Invalid username');
     }
-
 }
 
 window.onload = testUserAccount;
