@@ -24,22 +24,23 @@ function submitLog(evt) {
         isFormvalid = false;
     }
     if (isFormvalid) {
-        sessionStorage.setItem('user', userName);
+        setUsername(userName);
         testUserAccount();
     }
     evt.preventDefault();
 }
 
 function testUserAccount() {
-    if (sessionStorage.getItem('user')) {
+    var main = document.querySelector('main');
+    if (getUsername()) {
         document.querySelector('nav').classList.remove('hide');
-        document.querySelector('main').innerHTML = ajax('accueil.html');
-        document.querySelector('span.profile').innerHTML = sessionStorage.getItem('user');
+        main.innerHTML = ajax('accueil.html');
+        document.querySelector('span.profile').innerHTML = getUsername();
         document.querySelector('span.home').addEventListener('click', displayHome, true);
         document.querySelector('span.profile').addEventListener('click', displayProfile, true);
         document.querySelector('span.logout').addEventListener('click', logout, true);
     } else {
-        document.querySelector('main').innerHTML = ajax('login.html');
+        main.innerHTML = ajax('login.html');
         document.querySelector('nav').classList.add('hide');
         document.querySelector('form.login').addEventListener('submit', submitLog, true);
     }
@@ -51,7 +52,7 @@ function displayHome() {
 
 function displayProfile() {
     document.querySelector('main').innerHTML = ajax('profil.html');
-    document.querySelector('input.new-username').value = sessionStorage.getItem('user');
+    document.querySelector('input.new-username').value = getUsername();
     document.querySelector('button.save-username').addEventListener('click', checkNewUserName, true);
 }
 
@@ -64,13 +65,17 @@ function setUsername(username) {
     sessionStorage.setItem('user', username);
 }
 
+function getUsername() {
+    return sessionStorage.getItem('user');
+}
+
 function checkNewUserName() {
     var newUsername = document.querySelector('input.new-username').value;
     var isUsernameValid = true;
-    if (1 > newUsername.length){
+    if (1 > newUsername.length) {
         isUsernameValid = false;
     }
-    if (isUsernameValid){
+    if (isUsernameValid) {
         setUsername(newUsername);
         testUserAccount();
     } else {
@@ -78,4 +83,5 @@ function checkNewUserName() {
     }
 
 }
+
 window.onload = testUserAccount;
