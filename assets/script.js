@@ -50,6 +50,8 @@ function displayHome() {
 
 function displayProfile() {
     document.querySelector('main').innerHTML = ajax('profil.html');
+    document.querySelector('input.new-username').value = sessionStorage.getItem('user');
+    document.querySelector('button.save-username').addEventListener('click', checkNewUserName, true);
 }
 
 function logout() {
@@ -57,4 +59,22 @@ function logout() {
     testUserAccount();
 }
 
+function setUsername(username) {
+    sessionStorage.setItem('user', username);
+}
+
+function checkNewUserName() {
+    var newUsername = document.querySelector('input.new-username').value;
+    var isUsernameValid = true;
+    if (1 > newUsername.length){
+        isUsernameValid = false;
+    }
+    if (isUsernameValid){
+        setUsername(newUsername);
+        testUserAccount();
+    } else {
+        alert('Invalid username');
+    }
+
+}
 window.onload = testUserAccount;
