@@ -40,6 +40,7 @@ function testUserAccount() {
         document.querySelector('span.logout').addEventListener('click', logout, true);
     } else {
         document.querySelector('main').innerHTML = ajax('login.html');
+        document.querySelector('nav').classList.add('hide');
         document.querySelector('form.login').addEventListener('submit', submitLog, true);
     }
 }
